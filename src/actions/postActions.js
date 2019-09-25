@@ -7,7 +7,8 @@ export const fetchPosts = () => dispatch => {
         dispatch({
             type: FETCH_POSTS,
             payload: posts
-    }));
+        })
+    );
 }
 
 // above is the same code as below but with ES6 syntax
@@ -21,3 +22,18 @@ export const fetchPosts = () => dispatch => {
 //         }));
 //     }
 // }
+
+export const createPost = postData => dispatch => {
+    fetch('http://jsonplaceholder.typicode.com/posts', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(postData)
+        })
+        .then(res => res.json())
+        .then(post => dispatch({
+            type: NEW_POST,
+            payload: post
+        }));
+}
